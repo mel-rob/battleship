@@ -8,14 +8,9 @@ class Ship
     @health = length
   end
 
-# Should this be returning a value?
   def hit
     @health -= 1
   end
-
-  # def hit?
-  #   if @health < ship.length
-  # end
 
   def sunk?
     @health == 0
