@@ -12,9 +12,12 @@ class Cell
     @coordinate != @ship
   end
 
-  # def place_ship(ship)
-  #   @coordinate = @ship
-  # end
+  def place_ship(name)
+    cell = []
+    cells.each do |cell|
+      cell << cell.ship
+    end
+  end
 
 end
 

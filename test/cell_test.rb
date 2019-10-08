@@ -19,18 +19,16 @@ class CellTest < Minitest::Test
     assert_equal "B4", @cell.coordinate
   end
 
-  # def test_cell_has_ship
-  #   assert_equal
-  # end
-
-
+  def test_can_ship_be_in_cell
+    assert_equal
+  end
 
   def test_is_ship_in_cell
   end
 
-  # def test_cell_empty?
-  #   assert_equal true, @cell.empty?
-  # end
+  def test_cell_empty?
+    assert_equal true, @cell.empty?
+  end
 
 
 end
