@@ -1,3 +1,5 @@
+require 'pry'
+
 class Cell
   attr_reader :coordinate, :ship
 
@@ -6,13 +8,18 @@ class Cell
     @ship = ship
   end
 
-  def place_ship(ship)
-
+  def empty?
+    @coordinate != @ship
   end
 
-  # def empty?
-  #   if
-  #   end
+  # def place_ship(ship)
+  #   @coordinate = @ship
   # end
 
 end
+
+
+# cell knows its coordinates
+# cell knows if it is available for a ship to be placed on it
+# cell knows if it is occupied by a ship
+# cell knows if it has been hit
