@@ -31,9 +31,13 @@ class Board
     @cells.include?(coordinate)
   end
 
-  def valid_placement?(name, coordinate_placement)
-    coordinate_placement.count == name.length
+  def valid_placement?(name, coordinate_placement) #for LENGTH
+    if coordinate_placement.count == name.length
+    letter = coordinate_placement.map { |coordinate| coordinate[0] }
+    number = coordinate_placement.map { |coordinate| coordinate[1] }
+    end
   end
+
 
 
 
@@ -46,7 +50,3 @@ class Board
   # def valid_coordinate?(coordinate)
   #   @cells.values.coordinate == coordinate
   # end
-
-
-
-end
