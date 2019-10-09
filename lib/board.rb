@@ -31,24 +31,30 @@ class Board
     @cells.include?(coordinate)
   end
 
-  def valid_placement?(name, coordinate_placement)
-    if coordinate_placement.count == name.length
+  def valid_placement?(name, coordinates)
+    # if coordinates.count == name.length
 
-    letter = coordinate_placement.map { |coordinate| coordinate[0] }
-    number = coordinate_placement.map { |coordinate| coordinate[1] }
-    yrange = Range.new(letter.sort.first, letter.sort.last).count
-    xrange = Range.new(letter.sort.first, letter.sort.last).count
+      letters = coordinates.map do |coordinate|
+        coordinate[0]
+      end
+      numbers = coordinates.map do |coordinate|
+        coordinate[1]
+      end
+    # end
 
-    if xrange == ship.length && letter.uniq.count == 1
+    yrange = Range.new(letters.sort.first, letters.sort.last).count
+    xrange = Range.new(numbers.sort.first, numbers.sort.last).count
+
+    if xrange == name.length && letters.uniq.count == 1
       true
-    elsif yrange == ship.length && letter.uniq.count == 1
+    elsif yrange == name.length && numbers.uniq.count == 1
       true
     else
       false
     end
   end
-
-  end
+    # if coordinate_placement.each |coordinate
+end
 
 
 
