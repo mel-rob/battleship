@@ -31,6 +31,11 @@ class Board
     @cells.include?(coordinate)
   end
 
+  def valid_placement?(name, coordinate_placement)
+    coordinate_placement.count == name.length
+  end
+
+
 
   # def valid_coordinate?(coordinate)
   #   @cells.select do |key|
