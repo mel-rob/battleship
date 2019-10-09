@@ -23,9 +23,10 @@ class Cell
   end
 
   def fire_upon
-    # Do we need health to subtract here?
-    # @health -= 1
     @fired_upon = true
+    if @ship != nil
+      @health -= 1
+    end
   end
 
   def render(player = true)
