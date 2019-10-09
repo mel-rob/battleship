@@ -1,28 +1,25 @@
 require 'pry'
 
 class Cell
-  attr_reader :coordinate, :ship
+  attr_reader :coordinate, :ship, :status
 
   def initialize(coordinate)
     @coordinate = coordinate
-    @ship = ship
+    @ship = nil
+    @fired_upon = false
+    # @status = "."
   end
 
   def empty?
-    @coordinate != @ship
+    @ship == nil
+  end
+
+  def ship
+    @ship
   end
 
   def place_ship(name)
-    cell = []
-    cells.each do |cell|
-      cell << cell.ship
-    end
+    @ship = name
   end
 
 end
-
-
-# cell knows its coordinates
-# cell knows if it is available for a ship to be placed on it
-# cell knows if it is occupied by a ship
-# cell knows if it has been hit
