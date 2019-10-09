@@ -7,10 +7,14 @@ submarine = Ship.new("Submarine", 2)
 cell_1 = Cell.new("B4")
 cell_2 = Cell.new("C4")
 cell_3 = Cell.new("D4")
+cells = [cell_1, cell_2, cell_3]
 
 
+p cell_1.ship
 p cell_1.empty?
-
+cell_1.place_ship(cruiser)
+p cell_1.empty?
+p cell_1.ship
 
 
 
