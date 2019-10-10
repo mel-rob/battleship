@@ -39,10 +39,6 @@ class CellTest < Minitest::Test
   end
 
   def test_if_render_returns_correct_value
-
-    # assert_equal "S", @cell.render
-    # assert_equal "H", @cell.render
-    # assert_equal "X", @cell.render
     assert_equal ".", @cell_1.render
     @cell_1.fire_upon
     assert_equal "M", @cell_1.render
@@ -53,7 +49,11 @@ class CellTest < Minitest::Test
     @cell_2.fire_upon
     assert_equal "H", @cell_2.render
     assert_equal true, @cell_2.fired_upon
-    # assert_equal false, @cruiser.sunk?
+    assert_equal false, @cruiser.sunk?
+    @cruiser.hit
+    @cruiser.hit
+    assert_equal true, @cruiser.sunk?
+    assert_equal "X", @cell_2.render
   end
 
 end
