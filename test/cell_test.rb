@@ -8,7 +8,6 @@ require './lib/cell'
 class CellTest < Minitest::Test
 
   def setup
-    # @cell = Cell.new("B4")
     @cruiser = Ship.new("Cruiser", 3)
     @cell_1 = Cell.new("B4")
     @cell_2 = Cell.new("C3")
@@ -54,7 +53,7 @@ class CellTest < Minitest::Test
     @cell_2.fire_upon
     assert_equal "H", @cell_2.render
     assert_equal true, @cell_2.fired_upon
-    assert_equal false, @crusier.sunk?
+    # assert_equal false, @cruiser.sunk?
   end
 
 end
