@@ -39,9 +39,12 @@ class BoardTest < Minitest::Test
   def test_valid_placement_based_on_length
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2"])
     assert_equal true, @board.valid_placement?(@cruiser, ["A1", "A2", "A3"])
+    assert_equal true, @board.valid_placement?(@submarine, ["A1", "A2"])
+    assert_equal false, @board.valid_placement?(@submarine, ["A1", "A2", "A3"])
   end
 
   def test_valid_placement_based_on_consecutive_coordinates
+    #maybe change this to diagnol ship placment?
   assert_equal false, @board.valid_placement?(@cruiser, ["A1", "B2", "C3"])
   end
 
