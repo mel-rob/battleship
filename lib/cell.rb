@@ -25,11 +25,11 @@ class Cell
   def fire_upon
     @fired_upon = true
     if @ship != nil
-      @health -= 1
+      @ship.health -= 1
     end
   end
 
-  def render(player = true)
+  def render(player = false)
     if player == true && @ship != nil && @fired_upon == false
       "S"
     elsif @ship == nil && @fired_upon == true
