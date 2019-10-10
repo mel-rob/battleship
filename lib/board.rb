@@ -32,39 +32,23 @@ class Board
   end
 
   def valid_placement?(name, coordinates)
-    # if coordinates.count == name.length
 
       letters = coordinates.map do |coordinate|
         coordinate[0]
       end
+
       numbers = coordinates.map do |coordinate|
-        coordinate[1]
+        coordinate[1].to_i
       end
-    # end
 
-    yrange = Range.new(letters.sort.first, letters.sort.last).count
-    xrange = Range.new(numbers.sort.first, numbers.sort.last).count
-
-    if xrange == name.length && letters.uniq.count == 1
-      true
-    elsif yrange == name.length && numbers.uniq.count == 1
-      true
-    else
-      false
-    end
-  end
-    # if coordinate_placement.each |coordinate
+      yrange = Range.new(letters.sort.first, letters.sort.last).count
+      xrange = Range.new(numbers.sort.first, numbers.sort.last).count
+        if xrange == name.length && letters.uniq.count == 1
+          true
+        elsif yrange == name.length && numbers.uniq.count == 1
+          true
+        else
+          false
+        end
+      end
 end
-
-
-
-
-  # def valid_coordinate?(coordinate)
-  #   @cells.select do |key|
-  #     @cells.key == coordinate
-  #   end
-  # end
-
-  # def valid_coordinate?(coordinate)
-  #   @cells.values.coordinate == coordinate
-  # end
