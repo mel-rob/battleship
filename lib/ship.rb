@@ -6,7 +6,6 @@ class Ship
   def initialize(name, length)
     @name = name
     @length = length
-    # should @health = length (vs. @length)?
     @health = length
   end
 
