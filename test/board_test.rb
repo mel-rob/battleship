@@ -46,6 +46,9 @@ class BoardTest < Minitest::Test
   def test_valid_placement_based_on_consecutive_coordinates
     #maybe change this to diagnol ship placment?
   assert_equal false, @board.valid_placement?(@cruiser, ["A1", "B2", "C3"])
+  assert_equal false, @board.valid_placement?(@cruiser, ["A4", "B1", "D3"])
   end
+
+  #need to test if consecutive but with a hole in ship, diagnol and random set of non consecutive coordinates
 
 end
