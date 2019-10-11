@@ -27,28 +27,15 @@ class Board
   end
 
   def valid_placement?(name, coordinates)
-    ships_dont_overlap(coordinates) == true &&
-    valid_placement_horizontal(name, coordinates) == true ||
-    valid_placement_vertical(name, coordinates) == true
+    if coordinates.all? { |coordinate| valid_coordinate?(coordinate) }
+
+      ships_dont_overlap(coordinates) == true &&
+      valid_placement_horizontal(name, coordinates) == true ||
+      valid_placement_vertical(name, coordinates) == true
+    else
+      false
+    end
   end
-
-
-  # def valid_placement?(name, coordinates)
-  #
-  #   letters = coordinates.map { |coordinate| coordinate[0] }
-  #   numbers = coordinates.map { |coordinate| coordinate[1] }
-  #
-  #   yrange = Range.new(letters.sort.first, letters.sort.last).count
-  #   xrange = Range.new(numbers.sort.first, numbers.sort.last).count
-  #
-  #     if xrange == name.length && letters.uniq.count == 1
-  #       true
-  #     elsif yrange == name.length && numbers.uniq.count == 1
-  #       true
-  #     else
-  #       false
-  #     end
-  # end
 
   def valid_placement_vertical(name, coordinates)
     letters = coordinates.map { |coordinate| coordinate[0] }
