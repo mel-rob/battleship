@@ -27,35 +27,49 @@ class Board
   end
 
   def valid_placement?(name, coordinates)
-
-    letters = coordinates.map do |coordinate|
-      coordinate[0]
-    end
-
-    numbers = coordinates.map do |coordinate|
-      coordinate[1].to_i
-    end
-
-    yrange = Range.new(letters.sort.first, letters.sort.last).count
-    xrange = Range.new(numbers.sort.first, numbers.sort.last).count
-      if xrange == name.length && letters.uniq.count == 1
-        true
-      elsif yrange == name.length && numbers.uniq.count == 1
-        true
-      else
-        false
-      end
+    ships_dont_overlap(coordinates) == true &&
+    valid_placement_horizontal(name, coordinates) == true ||
+    valid_placement_vertical(name, coordinates) == true
   end
 
-      # def place(cruiser, ["A1", "A2", "A3"])
-      def place(name, coordinates)
-        coordinates.each do |coordinate|
-          @cells[coordinate].place_ship(name)
-        end
-      end
 
-      def ship_overlap(coordinates)
-        if @ells[coordinate]
-      end
+  # def valid_placement?(name, coordinates)
+  #
+  #   letters = coordinates.map { |coordinate| coordinate[0] }
+  #   numbers = coordinates.map { |coordinate| coordinate[1] }
+  #
+  #   yrange = Range.new(letters.sort.first, letters.sort.last).count
+  #   xrange = Range.new(numbers.sort.first, numbers.sort.last).count
+  #
+  #     if xrange == name.length && letters.uniq.count == 1
+  #       true
+  #     elsif yrange == name.length && numbers.uniq.count == 1
+  #       true
+  #     else
+  #       false
+  #     end
+  # end
 
+  def valid_placement_vertical(name, coordinates)
+    letters = coordinates.map { |coordinate| coordinate[0] }
+    numbers = coordinates.map { |coordinate| coordinate[1] }
+    yrange = Range.new(letters.sort.first, letters.sort.last).count
+    yrange == name.length && numbers.uniq.count == 1
+  end
+
+
+  def valid_placement_horizontal(name, coordinates)
+    letters = coordinates.map { |coordinate| coordinate[0] }
+    numbers = coordinates.map { |coordinate| coordinate[1] }
+    xrange = Range.new(numbers.sort.first, numbers.sort.last).count
+    xrange == name.length && letters.uniq.count == 1
+  end
+
+  def place(name, coordinates)
+    coordinates.each { |coordinate| @cells[coordinate].place_ship(name) }
+  end
+
+  def ships_dont_overlap(coordinates)
+    coordinates.all? { |coordinate| @cells[coordinate].ship == nil }
+  end
 end
