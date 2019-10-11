@@ -40,10 +40,21 @@ class BoardTest < Minitest::Test
   end
 
   def test_valid_placement_based_on_length
+    skip
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2"])
     assert_equal true, @board.valid_placement?(@cruiser, ["A1", "A2", "A3"])
     assert_equal true, @board.valid_placement?(@submarine, ["A1", "A2"])
     assert_equal false, @board.valid_placement?(@submarine, ["A1", "A2", "A3"])
+  end
+
+  def test_valid_placement_vertical
+    assert_equal true, @board.valid_placement_vertical(@cruiser, ["A1", "B1", "C1"])
+    assert_equal false, @board.valid_placement_vertical(@submarine, ["B1", "B2"])
+  end
+
+  def test_valid_placement_horizontal
+    assert_equal true, @board.valid_placement_horizontal(@cruiser, ["A1", "A2", "A3"])
+    assert_equal false, @board.valid_placement_horizontal(@cruiser, ["B1", "C2", "D3"])
   end
 
   def test_valid_placement_based_on_consecutive_coordinates
@@ -61,11 +72,17 @@ class BoardTest < Minitest::Test
   end
 
   def test_ship_place_in_multiple_cells
+    skip
     @board.place(@cruiser, ["A1", "A2", "A3"])
-
     assert_equal @cruiser, @cell_1.ship
     assert_equal @cruiser, @cell_2.ship
     assert_equal @cruiser, @cell_3.ship
   end
 
+  def test_ships_dont_overlap
+    skip
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    assert_equal false, @board.ships_dont_overlap(@submarine, ["A1", "B1"])
+    assert_equal true, @board.ships_dont_overlap(@submarine, ["B1", "B2"])
+  end
 end
