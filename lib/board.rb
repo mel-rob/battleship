@@ -3,10 +3,6 @@ class Board
   attr_reader :cells
 
   def initialize
-    @cells = cells
-  end
-
-  def cells
     @cells = { "A1" => Cell.new("A1"),
                "A2" => Cell.new("A2"),
                "A3" => Cell.new("A3"),
@@ -22,10 +18,9 @@ class Board
                "D1" => Cell.new("D1"),
                "D2" => Cell.new("D2"),
                "D3" => Cell.new("D3"),
-               "D4" => Cell.new("D4"),
+               "D4" => Cell.new("D4")
     }
   end
-
 
   def valid_coordinate?(coordinate)
     @cells.include?(coordinate)
@@ -33,22 +28,34 @@ class Board
 
   def valid_placement?(name, coordinates)
 
-      letters = coordinates.map do |coordinate|
-        coordinate[0]
-      end
+    letters = coordinates.map do |coordinate|
+      coordinate[0]
+    end
 
-      numbers = coordinates.map do |coordinate|
-        coordinate[1].to_i
-      end
+    numbers = coordinates.map do |coordinate|
+      coordinate[1].to_i
+    end
 
-      yrange = Range.new(letters.sort.first, letters.sort.last).count
-      xrange = Range.new(numbers.sort.first, numbers.sort.last).count
-        if xrange == name.length && letters.uniq.count == 1
-          true
-        elsif yrange == name.length && numbers.uniq.count == 1
-          true
-        else
-          false
+    yrange = Range.new(letters.sort.first, letters.sort.last).count
+    xrange = Range.new(numbers.sort.first, numbers.sort.last).count
+      if xrange == name.length && letters.uniq.count == 1
+        true
+      elsif yrange == name.length && numbers.uniq.count == 1
+        true
+      else
+        false
+      end
+  end
+
+      # def place(cruiser, ["A1", "A2", "A3"])
+      def place(name, coordinates)
+        coordinates.each do |coordinate|
+          @cells[coordinate].place_ship(name)
         end
       end
+
+      def ship_overlap(coordinates)
+        if @ells[coordinate]
+      end
+
 end
