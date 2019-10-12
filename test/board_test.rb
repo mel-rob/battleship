@@ -4,6 +4,7 @@ require 'minitest/pride'
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
+require 'pry'
 
 class BoardTest < Minitest::Test
 
@@ -82,4 +83,24 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.ships_dont_overlap(["A1", "B1"])
     assert_equal true, @board.ships_dont_overlap(["B1", "B2"])
   end
+
+  def test_render
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+
+    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", @board.render
+  end
+
+  def test_render_true
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+
+    assert_equal "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n", @board.render(true)
+  end
+
+  # def test_render_hits
+  #   @board.place(@cruiser, ["A1", "A2", "A3"])
+  #   @cruiser.hit
+  #
+  #   # assert_equal "  1 2 3 4 \n" , @board.render
+  # end
+
 end
