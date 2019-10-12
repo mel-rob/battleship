@@ -88,15 +88,19 @@ class BoardTest < Minitest::Test
     @board.place(@cruiser, ["A1", "A2", "A3"])
 
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", @board.render
-    # assert_equal "  1 2 3 4 \n" , @board.render
-    # assert_equal "  1 2 3 4 \n" , @board.render
   end
 
   def test_render_true
-    skip
     @board.place(@cruiser, ["A1", "A2", "A3"])
 
     assert_equal "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n", @board.render(true)
   end
+
+  # def test_render_hits
+  #   @board.place(@cruiser, ["A1", "A2", "A3"])
+  #   @cruiser.hit
+  #
+  #   # assert_equal "  1 2 3 4 \n" , @board.render
+  # end
 
 end
