@@ -1,16 +1,17 @@
 require './lib/board'
 require './lib/cell'
 require './lib/ship'
+require './lib/player'
 
 class Game
 
   def initialize
     @board = Board.new
-    @cruiser = Ship.new("Cruiser", 3)
-    @submarine = Ship.new("Submarine", 2)
-    @computer_board = @board.render(false)
-    @player_board = @board.render(true)
-    @player = player
+    # @cruiser = Ship.new("Cruiser", 3)
+    # @submarine = Ship.new("Submarine", 2)
+    # @computer_board = @board.render(false)
+    # @player_board = @board.render(true)
+    @player = Player.new
   end
 
 
@@ -35,7 +36,7 @@ class Game
               puts "Enter the squares for the Cruiser (3 spaces):"
               puts "> "
                 if @board.valid_placement?(@cruiser, coordinates = gets.chomp.upcase.split(" ")) == true
-                  @player.place(@cruiser, coordinates)
+                  @player.board.place(@cruiser, coordinates)
                 end
 
                 loop do
@@ -48,6 +49,7 @@ class Game
                 end
               else
                 puts "Those are invalid coordinates. Please try again:"
+                break
               end
             end
           end
