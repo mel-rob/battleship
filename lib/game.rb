@@ -10,7 +10,6 @@ class Game
     # @cruiser = Ship.new("Cruiser", 3)
     # @submarine = Ship.new("Submarine", 2)
     # @computer_board = @board.render(false)
-    # @player_board = @board.render(true)
     @player = Player.new
   end
 
@@ -31,37 +30,42 @@ class Game
           puts "You now need to lay out your two ships."
           puts "The Cruiser is two units long and the Submarine is three units long."
           puts "-" * 50
-          puts @player.player_board + "\n"
+          puts @player.player_board.render(true)
 
             loop do
               puts "Enter the squares for the Cruiser (3 spaces):"
               puts "> "
-                if @player_board.valid_placement?(@player_cruiser, coordinates = gets.chomp.upcase.split(" ")) == true
-                  @player.place(@player_cruiser, coordinates)
+                if @player.player_board.valid_placement?(@player.player_cruiser, coordinates = gets.chomp.upcase.split(" ")) == true
+                    @player.player_board.place(@player.player_cruiser, coordinates)
+                    puts "-" * 50
+                    puts @player.player_board.render(true) + "\n"
+                else
+                  puts "-" * 50
+                  puts "Those are invalid coordinates. Please try again:"
+                  puts "-" * 50
                 end
 
-                loop do
+              puts "Enter the squares for the Submarine (2 spaces):"
+              puts "> "
+                if @player.player_board.valid_placement?(@player.player_submarine, coordinates = gets.chomp.upcase.split(" ")) == true
+                  @player.player_board.place(@player.player_submarine, coordinates)
                   puts "-" * 50
-                  puts "Yay! Valid coordinates."
-                  puts "Enter the squares for the Submarine (2 spaces):"
-                  puts "> "
-                  puts @player_board
-                  break
-              else
-                puts "Those are invalid coordinates. Please try again:"
-                break
-              end
+                  puts @player.player_board.render(true) + "\n"
+                else
+                  puts "-" * 50
+                  puts "Those are invalid coordinates. Please try again:"
+                  puts "-" * 50
+                  # puts @player.player_board.render(true) + "\n"
+                end
             end
-          end
+
+        break if gets.chomp == "q"
+          puts "You quit! Come back and play again later."
         end
       end
+    end
   end
 end
-
-      # break if gets.chomp == "q"
-      #   puts "You quit! Come back and play again later."
-      # end
-
 
 
 
