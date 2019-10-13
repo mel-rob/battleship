@@ -8,11 +8,9 @@ class Game
     @board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
-    @cell_1 = @board.cells["A1"]
-    @cell_2 = @board.cells["A2"]
-    @cell_3 = @board.cells["A3"]
     @computer_board = @board.render(false)
     @player_board = @board.render(true)
+    @player = player
   end
 
 
@@ -22,7 +20,9 @@ class Game
       puts "Welcome to BATTLESHIP"
       puts "Enter p to play. Enter q to quit."
       puts "-" * 50
+
       if gets.chomp == "p"
+
         loop do
           puts "-" * 50
           puts "I have laid out my ships on the grid."
@@ -30,24 +30,43 @@ class Game
           puts "The Cruiser is two units long and the Submarine is three units long."
           puts "-" * 50
           puts @player_board
-          coordinates = []
-          loop do until placement == @cruiser.length
-            puts "Enter the squares for the Cruiser (3 spaces):"
-            puts "> "
-            coordinates << gets.chomp.downcase
+
+            loop do
+              puts "Enter the squares for the Cruiser (3 spaces):"
+              puts "> "
+                if @board.valid_placement?(@cruiser, coordinates = gets.chomp.upcase.split(" ")) == true
+                  @player.place(@cruiser, coordinates)
+                end
+
+                loop do
+                  puts "-" * 50
+                  puts "Yay! Valid coordinates."
+                  puts "Enter the squares for the Submarine (2 spaces):"
+                  puts "> "
+                  puts @player_board
+                  break
+                end
+              else
+                puts "Those are invalid coordinates. Please try again:"
+              end
+            end
           end
-        end
-            @board.place(@cruiser, coordinates)
+
+
+
           end
-            puts @player_board
+
+      end
+          #     @board.place(@cruiser, coordinates)
+          #   end
+          #     puts @player_board
+          # end
         end
 
-        end
       # break if gets.chomp == "q"
       #   puts "You quit! Come back and play again later."
       # end
-    end
-  end
+
 
 
 
