@@ -6,7 +6,7 @@ require './lib/player'
 class Game
 
   def initialize
-    @board = Board.new
+    # @board = Board.new
     # @cruiser = Ship.new("Cruiser", 3)
     # @submarine = Ship.new("Submarine", 2)
     # @computer_board = @board.render(false)
@@ -44,6 +44,7 @@ class Game
                   puts "Those are invalid coordinates. Please try again:"
                   puts "-" * 50
                 end
+              
 
               puts "Enter the squares for the Submarine (2 spaces):"
               puts "> "
@@ -55,14 +56,13 @@ class Game
                   puts "-" * 50
                   puts "Those are invalid coordinates. Please try again:"
                   puts "-" * 50
-                  # puts @player.player_board.render(true) + "\n"
                 end
+              end
             end
 
-        break if gets.chomp == "q"
-          puts "You quit! Come back and play again later."
-        end
-      end
+    break if gets.chomp == "q"
+      puts "You quit! Come back and play again later."
+    end
     end
   end
 end
