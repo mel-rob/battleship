@@ -11,7 +11,7 @@ class Player
   end
 
   def create_player
-    @player_board = Board.new.render(true)
+    @player_board = Board.new
     @player_cruiser = Ship.new("Cruiser", 3)
     @player_submarine = Ship.new("Submarine", 2)
   end
