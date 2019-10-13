@@ -33,11 +33,11 @@ class Board
 
     return false unless ships_dont_overlap(coordinates) == true
 
-    # return true if valid_placement_horizontal(ship, coordinates) == true || valid_placement_vertical(ship, coordinates) == true
+    return true if valid_placement_horizontal(ship, coordinates) == true
 
-    # return true if valid_placement_vertical(ship, coordinates) == true
+    return true if valid_placement_vertical(ship, coordinates) == true
 
-    valid_placement_horizontal(ship, coordinates) == true || valid_placement_vertical(ship, coordinates) == true
+    return false
   end
 
 
