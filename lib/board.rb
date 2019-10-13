@@ -26,53 +26,51 @@ class Board
     @cells.include?(coordinate)
   end
 
-  def valid_placement?(name, coordinates)
-    if coordinates.all? { |coordinate| valid_coordinate?(coordinate) }
+  def valid_placement?(ship, coordinates)
+    return false unless coordinates.all? { |coordinate| valid_coordinate?(coordinate) }
 
-      ships_dont_overlap(coordinates) == true &&
-      valid_placement_horizontal(name, coordinates) == true ||
-      valid_placement_vertical(name, coordinates) == true
-    else
-      false
-    end
+    return false unless ship.length == coordinates.length
+
+    return false unless ships_dont_overlap(coordinates) == true
+
+    # return true if valid_placement_horizontal(ship, coordinates) == true || valid_placement_vertical(ship, coordinates) == true
+
+    # return true if valid_placement_vertical(ship, coordinates) == true
+
+    valid_placement_horizontal(ship, coordinates) == true || valid_placement_vertical(ship, coordinates) == true
   end
 
-  def valid_placement_vertical(name, coordinates)
+
+  def valid_placement_vertical(ship, coordinates)
     letters = coordinates.map { |coordinate| coordinate[0] }
     numbers = coordinates.map { |coordinate| coordinate[1] }
     yrange = Range.new(letters.sort.first, letters.sort.last).count
-    yrange == name.length && numbers.uniq.count == 1
+    yrange == ship.length && numbers.uniq.count == 1
   end
 
 
-  def valid_placement_horizontal(name, coordinates)
+  def valid_placement_horizontal(ship, coordinates)
     letters = coordinates.map { |coordinate| coordinate[0] }
     numbers = coordinates.map { |coordinate| coordinate[1] }
     xrange = Range.new(numbers.sort.first, numbers.sort.last).count
-    xrange == name.length && letters.uniq.count == 1
+    xrange == ship.length && letters.uniq.count == 1
   end
 
-  def place(name, coordinates)
-    coordinates.each { |coordinate| @cells[coordinate].place_ship(name) }
+  def place(ship, coordinates)
+    coordinates.each { |coordinate| @cells[coordinate].place_ship(ship) }
   end
 
   def ships_dont_overlap(coordinates)
     coordinates.all? { |coordinate| @cells[coordinate].ship == nil }
   end
 
-  def render(player = false)
-      if player == true
-        "  1 2 3 4 \n" +
-        "A #{@cells["A1"].render(true)} #{@cells["A2"].render(true)} #{@cells["A3"].render(true)} #{@cells["A4"].render(true)} \n" +
-        "B #{@cells["B1"].render(true)} #{@cells["B2"].render(true)} #{@cells["B3"].render(true)} #{@cells["B4"].render(true)} \n" +
-        "C #{@cells["C1"].render(true)} #{@cells["C2"].render(true)} #{@cells["C3"].render(true)} #{@cells["C4"].render(true)} \n" +
-        "D #{@cells["D1"].render(true)} #{@cells["D2"].render(true)} #{@cells["D3"].render(true)} #{@cells["D4"].render(true)} \n"
-      else
-        "  1 2 3 4 \n" +
-        "A #{@cells["A1"].render} #{@cells["A2"].render} #{@cells["A3"].render} #{@cells["A4"].render} \n" +
-        "B #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render} \n" +
-        "C #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render} \n" +
-        "D #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render} \n"
-      end
+  def render(show_ships = false)
+
+    a = @cells.keys[0..3].map { |coordinate| @cells[coordinate].render(show_ships) }
+    b = @cells.keys[4..7].map { |coordinate| @cells[coordinate].render(show_ships) }
+    c = @cells.keys[8..11].map { |coordinate| @cells[coordinate].render(show_ships) }
+    d = @cells.keys[12..15].map { |coordinate| @cells[coordinate].render(show_ships) }
+
+    "  1 2 3 4 \n" + "A #{a.join(" ")} \n" + "B #{b.join(" ")} \n" + "C #{c.join(" ")} \n" + "D #{d.join(" ")} \n"
   end
 end
