@@ -16,6 +16,7 @@ class Game
 
 
   def start
+    @player.create_player
     loop do
       puts "-" * 50
       puts "Welcome to BATTLESHIP"
@@ -30,13 +31,13 @@ class Game
           puts "You now need to lay out your two ships."
           puts "The Cruiser is two units long and the Submarine is three units long."
           puts "-" * 50
-          puts @player_board
+          puts @player.player_board + "\n"
 
             loop do
               puts "Enter the squares for the Cruiser (3 spaces):"
               puts "> "
-                if @board.valid_placement?(@cruiser, coordinates = gets.chomp.upcase.split(" ")) == true
-                  @player.board.place(@cruiser, coordinates)
+                if @player_board.valid_placement?(@player_cruiser, coordinates = gets.chomp.upcase.split(" ")) == true
+                  @player.place(@player_cruiser, coordinates)
                 end
 
                 loop do
@@ -46,24 +47,16 @@ class Game
                   puts "> "
                   puts @player_board
                   break
-                end
               else
                 puts "Those are invalid coordinates. Please try again:"
                 break
               end
             end
           end
-
-
-
-          end
-
-      end
-          #     @board.place(@cruiser, coordinates)
-          #   end
-          #     puts @player_board
-          # end
         end
+      end
+  end
+end
 
       # break if gets.chomp == "q"
       #   puts "You quit! Come back and play again later."
