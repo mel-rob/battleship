@@ -58,7 +58,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_valid_placement_based_on_consecutive_coordinates
-    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"]) #consecutive
+    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
     assert_equal false, @board.valid_placement?(@submarine, ["A1", "C1"]) #consecutive
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "B2", "C3"]) #diagonal
     assert_equal false, @board.valid_placement?(@submarine, ["C2", "D3"]) #diagonal
@@ -85,6 +85,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_render
+
     @board.place(@cruiser, ["A1", "A2", "A3"])
 
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", @board.render
