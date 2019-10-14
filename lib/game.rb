@@ -14,21 +14,26 @@ class Game
   end
 
 
-  def start
+  def main_menu
     @player.create_player
     loop do
       puts "-" * 50
       puts "Welcome to BATTLESHIP"
       puts "Enter p to play. Enter q to quit."
       puts "-" * 50
+      
+      if gets.chomp.upcase == "p"
+        setup
+      elsif gets.chomp.upcase == "q"
+        puts "You quit! Come back and play again later."
+      end
 
-      if gets.chomp == "p"
-
-        loop do
+        def setup
+          loop do
           puts "-" * 50
           puts "I have laid out my ships on the grid."
           puts "You now need to lay out your two ships."
-          puts "The Cruiser is two units long and the Submarine is three units long."
+          puts "The Cruiser is three units long and the Submarine is two units long."
           puts "-" * 50
           puts @player.player_board.render(true)
 
@@ -44,7 +49,7 @@ class Game
                   puts "Those are invalid coordinates. Please try again:"
                   puts "-" * 50
                 end
-              
+
 
               puts "Enter the squares for the Submarine (2 spaces):"
               puts "> "
