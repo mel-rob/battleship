@@ -60,33 +60,30 @@ class Game
             if coordinate.fired_upon == false
               if coordinate.valid_coordinate?(coordinate)
                 player_shot = @computer_board.cells[coordinate].fire_upon
-                computer_shot = @computer.fire
-                puts "Your shot on #{player_shot} was a #{player_shot.status}." #who knows if this will work
-                puts "My shot on #{computer_shot} was a #{computer_shot.status}" #who knows if this will work
-                break
+                computer_shot = @computer.fire #needs to match up with method in computer class
+                  #needs to have logic to return different responses (ie. hits, misses, sunk)
+                  # if player_shot.render == "H" #needs to have logic to return different responses (ie. hits, misses, sunk)
+                  puts "Your shot on #{player_shot} was a #{player_shot.status}." #who knows if this will work
+                  puts "My shot on #{computer_shot} was a #{computer_shot.status}" #who knows if this will work
+                  break
               else
                 puts "Please enter a valid coordinate:"
               end
             else
-              "You have already fired on this coordinate. Please choose again:"
+              puts "You have already fired on this coordinate. Please choose again:"
             end
           end
         end
-        
-
-
-
-
-
-
+       if @player_cruiser.sunk? && @player_submarine.sunk?
+         puts "You won!"
+       elsif @computer_cruiser.sunk? && @computer_submarine.sunk?
+         puts "I won!"
+       end
     elsif response == "Q"
-      puts "You quit! Come back and play again later."
+      puts "You quit! Come back and play later!"
     end
   end
 end
-
-
-
 
 
 game = Game.new
