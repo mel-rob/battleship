@@ -47,6 +47,22 @@ class Game
           puts "-" * 50
         end
       end
+# Start of SUbmarine Placment
+      puts "Enter the squares for the Submarine (2 spaces):"
+      loop do
+        print "> "
+        coordinates = gets.chomp.upcase.split(" ")
+        if @player_board.valid_placement?(@player_submarine, coordinates)
+          @player_board.place(@player_submarine, coordinates)
+          puts "-" * 50
+          puts @player_board.render(true) + "\n"
+          break
+        else
+          puts "-" * 50
+          puts "Those are invalid coordinates. Please try again:"
+          puts "-" * 50
+        end
+      end
 
         until @player_cruiser.sunk? && @player_submarine.sunk? || @computer_cruiser.sunk? && @computer_submarine.sunk? do
 
