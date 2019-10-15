@@ -2,6 +2,7 @@ require './lib/board'
 require './lib/cell'
 require './lib/ship'
 require './lib/computer'
+require 'pry'
 
 class Game
 
@@ -9,7 +10,7 @@ class Game
     @player_board = Board.new
     @player_cruiser = Ship.new("Cruiser", 3)
     @player_submarine = Ship.new("Submarine", 2)
-    @player = Player.new(@player_board)
+    # @player = Player.new(@player_board)
     @computer_board = Board.new
     @computer_cruiser = Ship.new("Cruiser", 3)
     @computer_submarine = Ship.new("Submarine", 2)
@@ -23,8 +24,8 @@ class Game
     puts "-" * 50
     response = gets.chomp.upcase[0]
     if response == "P"
-      # @computer_board.place(@computer_cruiser, coordinates)
-      # @computer_board.place(@computer_submarine, coordinates)
+      @computer.place_ship(@computer_cruiser)
+      @computer.place_ship(@computer_submarine)
       puts "-" * 50
       puts "I have laid out my ships on the grid."
       puts "You now need to lay out your two ships."
@@ -38,14 +39,14 @@ class Game
         if @player_board.valid_placement?(@player_cruiser, coordinates)
           @player_board.place(@player_cruiser, coordinates)
           puts "-" * 50
-          puts @player_board.render(true) = "\n"
+          puts @player_board.render(true) + "\n"
           break
         else
           puts "-" * 50
           puts "Those are invalid coordinates. Please try again:"
           puts "-" * 50
         end
-
+      end
 
         until @player_cruiser.sunk? && @player_submarine.sunk? || @computer_cruiser.sunk? && @computer_submarine.sunk? do
 
@@ -84,7 +85,3 @@ class Game
     end
   end
 end
-
-
-game = Game.new
-game.start
