@@ -11,7 +11,7 @@ class Computer
   end
 
 
-  def generate_ship_placement(ship)
+  def place_ship(ship)
     coordinates = []
     until @computer_board.valid_placement?(ship, coordinates) == true
       coordinates = @computer_board.cells.keys.sample(ship.length)
