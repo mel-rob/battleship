@@ -36,6 +36,7 @@ class Game
       #have issue with commas between coordinates
       loop do
         print "> "
+        #Remove commas?
         coordinates = gets.chomp.upcase.split(" ")
         if @player_board.valid_placement?(@player_cruiser, coordinates)
           @player_board.place(@player_cruiser, coordinates)
@@ -48,7 +49,7 @@ class Game
           puts "-" * 50
         end
       end
-# Start of SUbmarine Placment
+# Start of Submarine Placment
       puts "Enter the squares for the Submarine (2 spaces):"
       loop do
         print "> "
@@ -57,6 +58,7 @@ class Game
           @player_board.place(@player_submarine, coordinates)
           puts "-" * 50
           puts @player_board.render(true) + "\n"
+          puts "************* Ready to play! *************" + "\n"
           break
         else
           puts "-" * 50
@@ -73,29 +75,27 @@ class Game
           puts @player_board.render(true)
           puts "Enter the coordinate for your shot:"
           loop do
-            coordinate = gets.chomp
+            coordinate = gets.chomp.upcase
             print "> "
-            if coordinate.fired_upon == false
-              if coordinate.valid_coordinate?(coordinate)
-                player_shot = @computer_board.cells[coordinate].fire_upon
-                computer_shot = @computer.fire #needs to match up with method in computer class
-                  #needs to have logic to return different responses (ie. hits, misses, sunk)
-                  # if player_shot.render == "H" #needs to have logic to return different responses (ie. hits, misses, sunk)
-                  puts "Your shot on #{player_shot} was a #{player_shot.status}." #who knows if this will work
-                  puts "My shot on #{computer_shot} was a #{computer_shot.status}" #who knows if this will work
-                  break
-              else
-                puts "Please enter a valid coordinate:"
-              end
+            # binding.pry
+            if @computer_board.valid_coordinate?(coordinate) && @computer_board.cells[coordinate].fired_upon == false
+              @computer_board.cells[coordinate].fire_upon
+              player_shot = coordinate
+              @computer.fire_upon_cell(@player_board)
+              break
+            elsif !@computer_board.valid_coordinate?(coordinate)
+              puts "Please enter a valid coordinate:"
             else
               puts "You have already fired on this coordinate. Please choose again:"
             end
           end
         end
        if @player_cruiser.sunk? && @player_submarine.sunk?
-         puts "You won!"
-       elsif @computer_cruiser.sunk? && @computer_submarine.sunk?
          puts "I won!"
+         # break
+       elsif @computer_cruiser.sunk? && @computer_submarine.sunk?
+         puts "You won!"
+         # break
        end
     elsif response == "Q"
       puts "You quit! Come back and play later!"
