@@ -1,5 +1,5 @@
 require 'pry'
-
+require './lib/game'
 
 class Computer
 
@@ -19,12 +19,12 @@ class Computer
     @computer_board.place(ship, coordinates)
   end
 
-  def fire_upon_cell
-    coordinate = []
-    until @player_board.cells[coordinate].fired_upon == false
-      coordinate = @player_board.cells.keys.sample
-      @player_board.cells[coordinate].fire_upon
+  def fire_upon_cell(board)
+      coordinate = board.cells.keys.sample
+    if board.cells[coordinate].fired_upon == false
+      board.cells[coordinate].fire_upon
     end
+    # @player_board.cells[coordinate].fire_upon
     coordinate
   end
 end
