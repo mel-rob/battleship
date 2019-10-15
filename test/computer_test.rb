@@ -33,7 +33,8 @@ class ComputerTest < Minitest::Test
   #   assert_equal "Submarine", @computer.computer_submarine.name
   # end
 
-  def test_generate_ship_placement
+  def test_place_ship
+    #Refactor this for place_ship method
     assert_equal true, @computer_board.valid_placement?(@computer_cruiser, @computer.generate_ship_placement(@computer_cruiser))
   end
 
