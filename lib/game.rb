@@ -47,7 +47,8 @@ class Game
         end
 
 
-        loop do
+        until @player_cruiser.sunk? && @player_submarine.sunk? || @computer_cruiser.sunk? && @computer_submarine.sunk? do
+
           puts "=============COMPUTER BOARD============="
           puts @computer_board.render(false)
           puts "==============PLAYER BOARD=============="
@@ -62,13 +63,16 @@ class Game
                 computer_shot = @computer.fire
                 puts "Your shot on #{player_shot} was a #{player_shot.status}." #who knows if this will work
                 puts "My shot on #{computer_shot} was a #{computer_shot.status}" #who knows if this will work
+                break
               else
                 puts "Please enter a valid coordinate:"
               end
             else
-              "You have already fired upon this coordinate. Please choose again:"
+              "You have already fired on this coordinate. Please choose again:"
             end
           end
+        end
+        
 
 
 
