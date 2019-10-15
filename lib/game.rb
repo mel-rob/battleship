@@ -6,71 +6,73 @@ require './lib/player'
 class Game
 
   def initialize
-    # @board = Board.new
-    # @cruiser = Ship.new("Cruiser", 3)
-    # @submarine = Ship.new("Submarine", 2)
-    # @computer_board = @board.render(false)
-    @player = Player.new
+    @player_board = Board.new
+    @player_cruiser = Ship.new("Cruiser", 3)
+    @player_submarine = Ship.new("Submarine", 2)
+    @player = Player.new(@player_board)
+    @computer_board = Board.new
+    @computer_cruiser = Ship.new("Cruiser", 3)
+    @computer_submarine = Ship.new("Submarine", 2)
+    @computer = Computer.new(@computer_board)
   end
 
-
-  def main_menu
-    @player.create_player
-    loop do
+  def start
+    puts "-" * 50
+    puts "Welcome to BATTLESHIP"
+    puts "Enter p to play. Enter q to quit."
+    puts "-" * 50
+    response = gets.chomp.upcase[0]
+    if response == "P"
+      # @computer_board.place(@computer_cruiser, coordinates)
+      # @computer_board.place(@computer_submarine, coordinates)
       puts "-" * 50
-      puts "Welcome to BATTLESHIP"
-      puts "Enter p to play. Enter q to quit."
+      puts "I have laid out my ships on the grid."
+      puts "You now need to lay out your two ships."
+      puts "The Cruiser is three units long and the Submarine is two units long."
       puts "-" * 50
-      
-      if gets.chomp.upcase == "p"
-        setup
-      elsif gets.chomp.upcase == "q"
-        puts "You quit! Come back and play again later."
-      end
+      puts @player_board.render(true)
+      puts "Enter the squares for the Cruiser (3 spaces):"
+      loop do
+        print "> "
+        coordinates = gets.chomp.upcase.split(" ")
+        if @player_board.valid_placement?(@player_cruiser, coordinates)
+          @player_board.place(@player_cruiser, coordinates)
+          puts "-" * 50
+          puts @player_board.render(true) = "\n"
+          break
+        else
+          puts "-" * 50
+          puts "Those are invalid coordinates. Please try again:"
+          puts "-" * 50
+        end
 
-        def setup
+        loop do
+          puts "=============COMPUTER BOARD============="
+          puts @computer_board.render(false)
+          puts "==============PLAYER BOARD=============="
+          puts @player_board.render(true)
+          puts "Enter the coordinate for your shot:"
           loop do
-          puts "-" * 50
-          puts "I have laid out my ships on the grid."
-          puts "You now need to lay out your two ships."
-          puts "The Cruiser is three units long and the Submarine is two units long."
-          puts "-" * 50
-          puts @player.player_board.render(true)
-
-            loop do
-              puts "Enter the squares for the Cruiser (3 spaces):"
-              puts "> "
-                if @player.player_board.valid_placement?(@player.player_cruiser, coordinates = gets.chomp.upcase.split(" ")) == true
-                    @player.player_board.place(@player.player_cruiser, coordinates)
-                    puts "-" * 50
-                    puts @player.player_board.render(true) + "\n"
-                else
-                  puts "-" * 50
-                  puts "Those are invalid coordinates. Please try again:"
-                  puts "-" * 50
-                end
-
-
-              puts "Enter the squares for the Submarine (2 spaces):"
-              puts "> "
-                if @player.player_board.valid_placement?(@player.player_submarine, coordinates = gets.chomp.upcase.split(" ")) == true
-                  @player.player_board.place(@player.player_submarine, coordinates)
-                  puts "-" * 50
-                  puts @player.player_board.render(true) + "\n"
-                else
-                  puts "-" * 50
-                  puts "Those are invalid coordinates. Please try again:"
-                  puts "-" * 50
-                end
-              end
+            coordinate = gets.chomp
+            print "> "
+            if coordinate.valid_coordinate?(coordinate)
+              @computer_board.cells[coordinate].fire_upon
+              @computer.fire
+            else
+              puts "Please enter a valid coordinate:"
             end
 
-    break if gets.chomp == "q"
+
+
+
+
+
+    elsif response == "Q"
       puts "You quit! Come back and play again later."
-    end
     end
   end
 end
+
 
 
 
