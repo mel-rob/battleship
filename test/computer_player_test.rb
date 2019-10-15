@@ -11,6 +11,9 @@ class ComputerPlayerTest < Minitest::Test
 
   def setup
     @computer_player = ComputerPlayer.new
+    @computer_cruiser = Ship.new("Cruiser", 3)
+    @computer_submarine = Ship.new("Submarine", 2)
+
   end
 
   def test_it_exists
@@ -32,5 +35,11 @@ class ComputerPlayerTest < Minitest::Test
     @computer_player.create_player
     assert_instance_of Ship, @computer_player.computer_submarine
     assert_equal "Submarine", @computer_player.computer_submarine.name
+  end
+
+  # def test_generate_ship_placement
+  #   @computer_player.generate_ship_placement
+  #
+  #   assert_equal true,
   end
 end
