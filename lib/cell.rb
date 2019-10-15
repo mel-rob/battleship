@@ -1,13 +1,13 @@
 require 'pry'
 
 class Cell
-  attr_reader :coordinate, :ship, :fired_upon
+  attr_reader :coordinate, :ship, : status, :fired_upon
 
   def initialize(coordinate)
     @coordinate = coordinate
     @ship = nil
     @fired_upon = false
-    # @status = "."
+    @status = "."
   end
 
   def empty?
@@ -33,8 +33,10 @@ class Cell
     if player == true && @ship != nil && @fired_upon == false
       "S"
     elsif @ship == nil && @fired_upon == true
+      @status = "miss"
       "M"
     elsif @ship != nil && @fired_upon == true && @ship.health > 0
+      @status = "hit"
       "H"
     elsif @ship != nil && @fired_upon == true && @ship.health == 0
       "X"
