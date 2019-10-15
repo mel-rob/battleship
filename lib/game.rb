@@ -46,6 +46,7 @@ class Game
           puts "-" * 50
         end
 
+
         loop do
           puts "=============COMPUTER BOARD============="
           puts @computer_board.render(false)
@@ -55,12 +56,19 @@ class Game
           loop do
             coordinate = gets.chomp
             print "> "
-            if coordinate.valid_coordinate?(coordinate)
-              @computer_board.cells[coordinate].fire_upon
-              @computer.fire
+            if coordinate.fired_upon == false
+              if coordinate.valid_coordinate?(coordinate)
+                player_shot = @computer_board.cells[coordinate].fire_upon
+                computer_shot = @computer.fire
+                puts "Your shot on #{player_shot} was a #{player_shot.status}." #who knows if this will work
+                puts "My shot on #{computer_shot} was a #{computer_shot.status}" #who knows if this will work
+              else
+                puts "Please enter a valid coordinate:"
+              end
             else
-              puts "Please enter a valid coordinate:"
+              "You have already fired upon this coordinate. Please choose again:"
             end
+          end
 
 
 
