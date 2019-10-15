@@ -16,7 +16,7 @@ class Computer
     until @computer_board.valid_placement?(ship, coordinates) == true
       coordinates = @computer_board.cells.keys.sample(ship.length)
     end
-    coordinates
+    @computer_board.place(ship, coordinates)
   end
 
   def fire_upon_cell
