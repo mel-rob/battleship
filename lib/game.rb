@@ -22,7 +22,7 @@ class Game
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter q to quit."
     puts "-" * 50
-    response = gets.chomp.upcase[0]
+    response = gets.chomp[0].upcase
     if response == "P"
       @computer.place_ship(@computer_cruiser)
       @computer.place_ship(@computer_submarine)
@@ -33,6 +33,7 @@ class Game
       puts "-" * 50
       puts @player_board.render(true)
       puts "Enter the squares for the Cruiser (3 spaces):"
+      #have issue with commas between coordinates
       loop do
         print "> "
         coordinates = gets.chomp.upcase.split(" ")
