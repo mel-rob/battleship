@@ -10,11 +10,19 @@ class Game
     @player_board = Board.new
     @player_cruiser = Ship.new("Cruiser", 3)
     @player_submarine = Ship.new("Submarine", 2)
-    # @player = Player.new(@player_board)
     @computer_board = Board.new
     @computer_cruiser = Ship.new("Cruiser", 3)
     @computer_submarine = Ship.new("Submarine", 2)
     @computer = Computer.new(@computer_board)
+  end
+
+  # until @player_cruiser.sunk? && @player_submarine.sunk? || @computer_cruiser.sunk? && @computer_submarine.sunk?
+
+  def start
+    main_menu
+    board_setup
+    take_turn
+    game_over
   end
 
   def main_menu
@@ -51,6 +59,8 @@ class Game
     if @player_board.valid_placement?(@player_cruiser, coordinates)
       @player_board.place(@player_cruiser, coordinates)
       puts "-" * 50
+      puts "Your cruiser has been placed!\n"
+      puts "-" * 50
       puts @player_board.render(true) + "\n"
       submarine_setup
     else
@@ -68,8 +78,12 @@ class Game
     if @player_board.valid_placement?(@player_submarine, coordinates)
       @player_board.place(@player_submarine, coordinates)
       puts "-" * 50
+      puts "Your submarine has been placed!"
+      puts "-" * 50
       puts @player_board.render(true) + "\n"
-      puts "************* Ready to play! *************" + "\n"
+      puts "-" * 50
+      puts "Ready to play!"
+      puts "-" * 50
       turn
     else
       puts "-" * 50
@@ -81,11 +95,47 @@ class Game
 
   def turn
 
+    until @player_cruiser.sunk? && @player_submarine.sunk? || @computer_cruiser.sunk? && @computer_submarine.sunk? do
 
+      puts "=============COMPUTER BOARD============="
+      puts @computer_board.render(false)
+      puts "==============PLAYER BOARD=============="
+      puts @player_board.render(true)
+      puts "Enter the coordinate for your shot:"
+      loop do
+      player_shot = gets.chomp.upcase
+      print "> "
+        if @computer_board.valid_coordinate?(player_shot) && @computer_board.cells[player_shot].fired_upon == false
+          @computer_board.cells[player_shot].fire_upon
+          @computer.fire_upon_cell(@player_board)
+          break
+        elsif !@computer_board.valid_coordinate?(coordinate)
+          puts "Please enter a valid coordinate:"
+        else
+          puts "You have already fired on this coordinate. Please choose again:"
+        end
 
+        if @computer_board.cells[player_shot].render == "H"
+          puts "Your shot on #{player_shot} was a hit!"
+        elsif player_shot.render == "M"
+          puts "Your shot on #{player_shot} was a miss!"
+        elsif player_shot.render == "X"
+          puts "Your shot on #{player_shot} sunk  my ship!"
+        end
+      end
+      game_over
+    end
+  end
+
+  def game_over
+    if @player_cruiser.sunk? && @player_submarine.sunk?
+      puts "I won!"
+    elsif @computer_cruiser.sunk? && @computer_submarine.sunk?
+      puts "You won!"
+    end
+    main_menu
   end
 end
-#
 #         until @player_cruiser.sunk? && @player_submarine.sunk? || @computer_cruiser.sunk? && @computer_submarine.sunk? do
 #
 #           puts "=============COMPUTER BOARD============="
