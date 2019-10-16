@@ -69,7 +69,7 @@ class Game
   def cruiser_setup
     puts "Enter the squares for the Cruiser (3 spaces):"
     print "> "
-    coordinates = gets.chomp.upcase.split(" ")
+    coordinates = gets.chomp.upcase.gsub(",", " ").split(" ")
     if @player_board.valid_placement?(@player_cruiser, coordinates)
       @player_board.place(@player_cruiser, coordinates)
       puts "-" * 50
@@ -88,7 +88,7 @@ class Game
   def submarine_setup
     puts "Enter the squares for the Submarine (2 spaces):"
     print "> "
-    coordinates = gets.chomp.upcase.split(" ")
+    coordinates = gets.chomp.upcase.gsub(",", " ").split(" ")
     if @player_board.valid_placement?(@player_submarine, coordinates)
       @player_board.place(@player_submarine, coordinates)
       puts "-" * 50
