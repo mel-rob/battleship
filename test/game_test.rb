@@ -87,5 +87,5 @@ class GameTest < Minitest::Test
     assert_equal 1, @computer_board.render.count("H")
     assert_equal 1, @computer_board.render.count("M")
   end
-  
+
 end

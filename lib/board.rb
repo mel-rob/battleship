@@ -42,7 +42,7 @@ class Board
     letters = coordinates.map { |coordinate| coordinate[0] }
     letter_range = Range.new(letters.sort.first, letters.sort.last).count
     letter_range
-    end
+  end
 
 
   def split_array_numbers(coordinates)
