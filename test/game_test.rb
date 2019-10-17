@@ -23,7 +23,7 @@ class GameTest < Minitest::Test
   end
 
   def test_it_initializes_with_player_objects
-    assert_instance_of Board, @game.player_board
+    assert_instance_of Board, @player_board
     assert_instance_of Ship, @player_cruiser
 
     assert_equal "Cruiser", @player_cruiser.name
