@@ -31,29 +31,24 @@ class Board
 
     return false unless ships_dont_overlap(coordinates)
 
-    return true if valid_placement_horizontal(ship, coordinates)
+    return true if split_array_letters(coordinates) == ship.length && split_array_numbers(coordinates) == 1
 
-    return true if valid_placement_vertical(ship, coordinates)
+    return true if split_array_numbers(coordinates) == ship.length && split_array_letters(coordinates) == 1
 
     return false
   end
 
-  def split_array(coordinates)
-    @letters = coordinates.map { |coordinate| coordinate[0] }
-    @numbers = coordinates.map { |coordinate| coordinate[1] }
-  end
-
-  def valid_placement_vertical(ship, coordinates)
-    split_array(coordinates)
-    yrange = Range.new(@letters.sort.first, @letters.sort.last).count
-    yrange == ship.length && @numbers.uniq.count == 1
-  end
+  def split_array_letters(coordinates)
+    letters = coordinates.map { |coordinate| coordinate[0] }
+    letter_range = Range.new(letters.sort.first, letters.sort.last).count
+    letter_range
+    end
 
 
-  def valid_placement_horizontal(ship, coordinates)
-    split_array(coordinates)
-    xrange = Range.new(@numbers.sort.first, @numbers.sort.last).count
-    xrange == ship.length && @letters.uniq.count == 1
+  def split_array_numbers(coordinates)
+    numbers = coordinates.map { |coordinate| coordinate[1] }
+    number_range = Range.new(numbers.sort.first, numbers.sort.last).count
+    number_range
   end
 
   def place(ship, coordinates)
