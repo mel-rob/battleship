@@ -42,6 +42,7 @@ class Game
 
   def computer_place_ship(ship)
     coordinates = []
+    coordinates = @computer_board.cells.keys.sample(ship.length)
     until @computer_board.valid_placement?(ship, coordinates) == true
       coordinates = @computer_board.cells.keys.sample(ship.length)
     end
