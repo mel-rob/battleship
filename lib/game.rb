@@ -4,8 +4,6 @@ require './lib/ship'
 
 class Game
 
-  attr_reader :player_board
-
   def initialize
     @player_board = Board.new
     @player_cruiser = Ship.new("Cruiser", 3)
@@ -43,7 +41,7 @@ class Game
   def computer_place_ship(ship)
     coordinates = []
     coordinates = @computer_board.cells.keys.sample(ship.length)
-    until @computer_board.valid_placement?(ship, coordinates) == true
+    until @computer_board.valid_placement?(ship, coordinates)
       coordinates = @computer_board.cells.keys.sample(ship.length)
     end
     @computer_board.place(ship, coordinates)
@@ -132,7 +130,7 @@ class Game
 
   def computer_fires
     @computer_shot = @player_board.cells.keys.sample
-    if @player_board.cells[@computer_shot].fired_upon == false
+    if !@player_board.cells[@computer_shot].fired_upon
       @player_board.cells[@computer_shot].fire_upon
     end
   end
