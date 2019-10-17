@@ -4,7 +4,6 @@ require 'minitest/pride'
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
-require 'pry'
 
 class BoardTest < Minitest::Test
 
@@ -25,12 +24,12 @@ class BoardTest < Minitest::Test
     assert_instance_of Hash, @board.cells
   end
 
-  def test_hash_contains_correct_keys
+  def test_hash_contains_correct_number_of_keys_and_values
     assert_equal 16, @board.cells.keys.count
     assert_equal 16, @board.cells.values.count
   end
 
-  def test_hash_values_are_cells
+  def test_hash_values_are_cell_objects
     assert_instance_of Cell, @board.cells.values.first
   end
 
@@ -43,32 +42,17 @@ class BoardTest < Minitest::Test
   def test_valid_placement_based_on_length
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2"])
     assert_equal true, @board.valid_placement?(@cruiser, ["A1", "A2", "A3"])
+
     assert_equal true, @board.valid_placement?(@submarine, ["A1", "A2"])
     assert_equal false, @board.valid_placement?(@submarine, ["A1", "A2", "A3"])
   end
 
-  def test_valid_placement_vertical
-    assert_equal true, @board.valid_placement_vertical(@cruiser, ["A1", "B1", "C1"])
-    assert_equal false, @board.valid_placement_vertical(@submarine, ["B1", "B2"])
-  end
+  def test_for_consecutive_coordinates
+    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "B2", "C3"])
+    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A3", "A4"])
 
-  def test_valid_placement_horizontal
-    assert_equal true, @board.valid_placement_horizontal(@cruiser, ["A1", "A2", "A3"])
-    assert_equal false, @board.valid_placement_horizontal(@cruiser, ["B1", "C2", "D3"])
-  end
-
-  def test_valid_placement_based_on_consecutive_coordinates
-    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
-    assert_equal false, @board.valid_placement?(@submarine, ["A1", "C1"]) #consecutive
-    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "B2", "C3"]) #diagonal
-    assert_equal false, @board.valid_placement?(@submarine, ["C2", "D3"]) #diagonal
-    assert_equal true, @board.valid_placement?(@submarine, ["A1", "A2"]) #valid
-    assert_equal true, @board.valid_placement?(@cruiser, ["B1", "C1", "D1"]) #valid
-    assert_equal false, @board.valid_placement?(@cruiser, ["B1", "C3", "D3"]) #disconnected
-    assert_equal false, @board.valid_placement?(@submarine, ["A4", "B1"]) #disconnected
-    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A3", "A4"]) #hole
-    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "D10", "A4"]) #outside of board
-    assert_equal false, @board.valid_placement?(@submarine, ["A4", "A1"]) #hole
+    assert_equal false, @board.valid_placement?(@submarine, ["C2", "D3"])
+    assert_equal false, @board.valid_placement?(@submarine, ["A4", "B1"])
   end
 
   def test_place
@@ -85,23 +69,13 @@ class BoardTest < Minitest::Test
   end
 
   def test_render
-
     @board.place(@cruiser, ["A1", "A2", "A3"])
-
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", @board.render
   end
 
   def test_render_true
     @board.place(@cruiser, ["A1", "A2", "A3"])
-
     assert_equal "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n", @board.render(true)
   end
-
-  # def test_render_hits
-  #   @board.place(@cruiser, ["A1", "A2", "A3"])
-  #   @cruiser.hit
-  #
-  #   # assert_equal "  1 2 3 4 \n" , @board.render
-  # end
 
 end
